@@ -1,14 +1,14 @@
 import numpy as np
 import torch
 
-# use GPU (or CPU)
+## use GPU (or CPU)
 if torch.cuda.is_available():
     device = torch.device('cuda')
 else:
     device = torch.device('cpu')
 
 
-# simulated data parameters
+## simulated data parameters
 R: torch.FloatTensor = torch.from_numpy(np.genfromtxt('response_matrix.txt', dtype=np.float32))
 trunc_num = 0
 if trunc_num:
@@ -25,11 +25,12 @@ magnitude_range = (0.6, 1.4)
 
 peak_range = (0, 205)
 
-# training parameters
-learning_rate = 0.0005
+## training parameters
+learning_rate = 0.0003
 batch_size = 256
-num_iters = 3000
+num_iters = 20000
 
+## saved ground truth
 # commercial gt & nnls prediction
 lam_gts_comm_1pk = [400.66, 
                     426.08, 
@@ -48,3 +49,13 @@ lam_gts_comm_2pk = [[399.92, 504.55],
                     [402.09, 576.79], 
                     [467.22, 570.99], 
                     [467.57, 569.28]]
+
+
+## parameters for potential changes on data generation
+# minimum width decay ratio
+beta = 0.4
+
+# base parameters
+sp_thres = 0.2
+sp_prob = 0.10
+sp_sigma = 10
